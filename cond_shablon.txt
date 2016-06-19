@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 sa_link	default_ud_link	where	what	then_ud_link	head_change
 root	root	-	-	-	-
 subj:nom	nsubj	-	-	-	-
@@ -5,3 +6,12 @@ dat	dobj	etap3	2-компл	iobj	-
 obj:acc	dobj	-	-	-	-
 obj:acc:coord	conj	-	-	-	-
 conj	cc	-	-	-	T
+=======
+sa_link	default_ud_link	where	what	then_ud_link	head_change
+root	root	-	-	-	-
+subj:nom	nsubj	-	-	-	-
+dat	dobj	etap3	2-компл	iobj	-
+obj:acc	dobj	-	-	-	-
+obj:acc:coord	conj	-	-	-	-
+conj	cc	-	-	-	T
+>>>>>>> origin/master
