@@ -14,4 +14,78 @@ dat	dobj	etap3	2-компл	iobj	-
 obj:acc	dobj	-	-	-	-
 obj:acc:coord	conj	-	-	-	-
 conj	cc	-	-	-	T
+
+
+subj:nom	nsubj	-	-	-	-??посмотреть nsubjpass
+subj:nom:coord conj	-	-	-	-
+subj dep - - - -
+subj:coord conj	-	-	-	-
+subj:dat dobj - - - -
+subj:gen dobj - - - -
+subj:gen:coord conj	-	-	-	-
+subj:inf csubj - - - -
+subj:inf:coord conj	-	-	-	-
+subj:num nsubj - - - -
+subj:num:coord conj	-	-	-	-
+obj:acc	dobj	-	-	-	-??
+obj:acc:coord conj	-	-	-	-
+obj:gen dobj - - - -
+obj:gen:coord conj	-	-	-	-
+obj:nom dobj - - - -
+obj:num dobj - - - -
+obj:num:coord conj	-	-	-	-
+obj:part
+dat	dobj	etap3	2-компл	iobj	-
+ins cop etap3 присвяз dobj -
+krat cop - - - -
+gen nmod - - - -
+prepnp case - - - -
+adj amod - - - -
+ptp acl - - - -
+adv advmod etap3 обст cop -
+prep advmod:emph etap3 обст|атриб|огранич mwe -??так можно сделать?
+part cc - - - -
+conj	cc	-	-	-	T
+coord conj	-	-	-	-
+digit nummod - - - -
+card ??сложнее двух строчек
+obj:inf xcomp|ccomp - - - -??глаголы чтоли перечислять?
+inf ??больше двух условий
+inf:coord conj	-	-	-	-
+by aux - - - -
+li discourse - - - -
+pt neg etap3 огранич discourse -
+
+coord conj	-	-	-	-
+hyph mwe - - - -
+
+quoml punct - - - -
+quomr punct - - - -
+misc?? сложнее двух условий
+amod det - 
+mod:inf acl - - - -
+mod:inf:coord conj	-	-	-	-
+adj:coord conj	-	-	-	-
+analyt aux - - - -
+analyt:coord conj	-	-	-	-
+appo ?? больше двух условий
+dee advcl - - - -
+
+imper:coord conj	-	-	-	-
+impers:inf advcl - - - -
+impers:inf:coord conj	-	-	-	-
+sent?? больше двух условий
+np?? проблема в выделении имен собственных
+fin auxpass:reflex etap3 пасс-анал aux -|T
+fin:coord conj	-	-	-	-
+pred:cop root - - - -
+Pred:Cop:coord conj	-	-	-	-
+root root - - - -
+root:coord conj	-	-	-	-
+
+
+
+homo aux быть conj -
+lexmod?? если связь с pnt(дфисом), то переводить в punct, иначе mwe
+imper root - parataxis -
 >>>>>>> origin/master
