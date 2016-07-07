@@ -363,7 +363,13 @@ class Word():
             # ОН сказала пока не делать правильной ud головы, а помечать места смены структуры
             # (что и делает строка self.head_change = True)
             # но я написала на всякий случай, что в итоге должно происходить - self.ud_head = self.sa_head.sa_head
-
+        #сложные правила Маша
+        if self.sa_link = "np":
+            if self.sa_lemma.startswith('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+                self.ud_link = u'name'
+            else:
+                self.ud_link = u'vocative'
+        if self.sa_link = "np":
 
 class Sent():
     def __init__(self):
