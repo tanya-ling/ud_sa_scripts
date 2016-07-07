@@ -85,7 +85,11 @@ root:coord conj	-	-	-	-
 
 
 
-homo aux быть conj -
-lexmod?? если связь с pnt(дфисом), то переводить в punct, иначе mwe
+homo aux head_token быть conj -
+lexmod punct gramm pnt mwe -
 imper root - parataxis -
+
+
+
+#s_link u_link_1 head_token быть u_link_2 -
 >>>>>>> origin/master
