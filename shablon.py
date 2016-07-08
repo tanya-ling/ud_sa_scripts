@@ -364,12 +364,40 @@ class Word():
             # (что и делает строка self.head_change = True)
             # но я написала на всякий случай, что в итоге должно происходить - self.ud_head = self.sa_head.sa_head
         #сложные правила Маша
-        if self.sa_link = "np":
+        if self.sa_link = u'np':
             if self.sa_lemma.startswith('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'name'
             else:
                 self.ud_link = u'vocative'
-        if self.sa_link = "np":
+        if self.sa_link = u'card':
+            if self.etap3_link = u'колич':
+                self.ud_link = u'nummod:gov'
+            if self.etap3_link = u'опред':
+                self.ud_link = u'det:nummod'
+            if self.etap3_link = u'1-компл':
+                self.ud_link = u'det:numgov'
+        if self.sa_link = u'inf':
+            if self.etap3_link = u'присвяз':
+                self.ud_link = u'cop'
+            if self.dependent_pos = u'NOUN':
+                self.ud_link = u'acl'
+            else:
+                self.ud_link = u'ccomp'
+        if self.sa_link = u'appo':
+            if self.head_lemma.startswith ('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+                self.ud_link = u'nmod'
+            if self.head_lemma.startswith ('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ') and self.dependent_lemma.startswith ('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+                self.ud_link = u'name'
+            else:
+                self.ud_link = u'appos'
+        if self.sa_link = u'misc':
+            if self.dependent_pos = u'pnt':
+                self.ud_link = u'punct'
+            if self.dependent_lemma.startswith ('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+                self.ud_link = u'name'
+            else:
+                self.ud_link = u'dep'
+        
 
 class Sent():
     def __init__(self):
