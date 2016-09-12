@@ -47,7 +47,7 @@ class Word():
     def get_pos(self):
         if self.et_gramm == u'' or self.et_gramm == u'~':
             self.ud_pos = u'PUNCT'
-        elif self.et_gramm[0] == u'S':
+        elif u'S' in self.et_gramm:
             self.noun()
         elif u'ADV' in self.et_gramm:
             self.ud_pos = u'ADV'
@@ -162,7 +162,7 @@ class Word():
                 return u'pdv'
             else:
                 print u'was für eine Form', self.sa_gramm, self.token
-                return u'dif' # нужно разобраться
+                return u'dif'  # нужно разобраться
         else:
             return u''
 
@@ -304,8 +304,6 @@ class Word():
                 self.ud_link = info[0]
 
     def ud_convert_shablon(self, info):
-        if info[0] == u'root':
-            print self.token, u'is a root'
         if info[1] == u'-':
             self.ud_link = info[0]
             # print u'simple translation', self.sa_link, u'to', self.ud_link
@@ -327,73 +325,79 @@ class Word():
             else:
                 print u'unexpected "where" in shablon, typo? ', info[1]
         self.ud_head = self.sa_head
-        if info[4] == u'T':
-            self.head_change = True
+        try:
+            if info[4] == u'T':
+                self.head_change = True
+        except IndexError:
+            if info[0] not in cp_arr:
+                cp.write(u'too short instruction: ' + self.sa_link + u'\r\n')
+                cp_arr.append(info[0])
 
     def ud_convert(self):
         # это, конечно, не надо всё в кучу в одном месте писать, но пока я оставила так
         self.ud_gramm = self.sa_gramm  # наверное в перспективе тут тоже будет что-то меняться? мы не говорили об этом
         self.ud_lemma = self.sa_lemma
-        if self.sa_link == u'root':
-            self.ud_link = u'root'
-            self.ud_head = u'root'
-        if self.sa_link == u'subj:nom':
-            self.ud_link = u'nsubj'
-            self.ud_head = self.sa_head
-        if self.sa_link == u'dat':
-            if self.et_link == u'1-компл':
-                self.ud_link = u'dobj'
-            elif self.et_link == u'2-компл':
-                self.ud_link = u'iobj'
-            else:
-                pass
-                # на самом деле тут наверняка будут предложения с ошибками, а может и просто неучтенные случаи
-            self.ud_head = self.sa_head
-        if self.sa_link == u'obj:acc':
-            self.ud_link = u'dobj'
-            self.ud_head = self.sa_head
-        if self.sa_link == u'obj:acc:coord':
-            self.ud_link = u'conj'
-            self.ud_head = self.sa_head
-        if self.sa_link == u'conj':
-            self.ud_link = u'cc'
-            self.head_change = True
-            self.ud_head = self.sa_head
-            # self.ud_head = self.sa_head.sa_head
-            # ОН сказала пока не делать правильной ud головы, а помечать места смены структуры
-            # (что и делает строка self.head_change = True)
-            # но я написала на всякий случай, что в итоге должно происходить - self.ud_head = self.sa_head.sa_head
+        # if self.sa_link == u'root':
+        #     self.ud_link = u'root'
+        #     self.ud_head = u'root'
+        # if self.sa_link == u'subj:nom':
+        #     self.ud_link = u'nsubj'
+        #     self.ud_head = self.sa_head
+        # if self.sa_link == u'dat':
+        #     if self.et_link == u'1-компл':
+        #         self.ud_link = u'dobj'
+        #     elif self.et_link == u'2-компл':
+        #         self.ud_link = u'iobj'
+        #     else:
+        #         pass
+        #         # на самом деле тут наверняка будут предложения с ошибками, а может и просто неучтенные случаи
+        #     self.ud_head = self.sa_head
+        # if self.sa_link == u'obj:acc':
+        #     self.ud_link = u'dobj'
+        #     self.ud_head = self.sa_head
+        # if self.sa_link == u'obj:acc:coord':
+        #     self.ud_link = u'conj'
+        #     self.ud_head = self.sa_head
+        # if self.sa_link == u'conj':
+        #     self.ud_link = u'cc'
+        #     self.head_change = True
+        #     self.ud_head = self.sa_head
+        #     # self.ud_head = self.sa_head.sa_head
+        #     # ОН сказала пока не делать правильной ud головы, а помечать места смены структуры
+        #     # (что и делает строка self.head_change = True)
+        #     # но я написала на всякий случай, что в итоге должно происходить - self.ud_head = self.sa_head.sa_head
         #сложные правила Маша
-        if self.sa_link = u'np':
-            if self.sa_lemma.startswith('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+        if self.sa_link == u'np':
+            if self.sa_lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'name'
             else:
                 self.ud_link = u'vocative'
-        if self.sa_link = u'card':
-            if self.etap3_link = u'колич':
+        if self.sa_link == u'card':
+            if self.et_link == u'колич':
                 self.ud_link = u'nummod:gov'
-            if self.etap3_link = u'опред':
+            if self.et_link == u'опред':
                 self.ud_link = u'det:nummod'
-            if self.etap3_link = u'1-компл':
+            if self.et_link == u'1-компл':
                 self.ud_link = u'det:numgov'
-        if self.sa_link = u'inf':
-            if self.etap3_link = u'присвяз':
+        if self.sa_link == u'inf':
+            if self.et_link == u'присвяз':
                 self.ud_link = u'cop'
-            if self.dependent_pos = u'NOUN':
+            if self.ud_pos == u'NOUN':
                 self.ud_link = u'acl'
             else:
                 self.ud_link = u'ccomp'
-        if self.sa_link = u'appo':
-            if self.head_lemma.startswith ('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+        if self.sa_link == u'appo':
+            if self.sa_head.lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'nmod'
-            if self.head_lemma.startswith ('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ') and self.dependent_lemma.startswith ('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+            if self.sa_head.lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ') \
+                    and self.sa_lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'name'
             else:
                 self.ud_link = u'appos'
-        if self.sa_link = u'misc':
-            if self.dependent_pos = u'pnt':
+        if self.sa_link == u'misc':
+            if self.ud_pos == u'pnt':
                 self.ud_link = u'punct'
-            if self.dependent_lemma.startswith ('QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+            if self.sa_lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'name'
             else:
                 self.ud_link = u'dep'
@@ -432,6 +436,7 @@ class Sent():
             if child.sa_link in link_dict:
                 if child.sa_link == u'root':
                     print u'this is the root:', child.token, u'when we already have a root', self.root.token
+                    bs.write(self.index + u'\t' + self.text + u'	more than one root')
                 child.ud_convert_shablon(link_dict[child.sa_link])
             else:
                 if child.sa_link not in written_links:
@@ -506,6 +511,8 @@ def create_link_dict():
     link_dict = {}
     for line in cs:
         line = line.rstrip()
+        if u'>' in line or u'<' in line or line == u'':
+            continue
         line = line.split(u'	')
         # print line
         link_dict[line[0]] = line[1:]
@@ -516,23 +523,27 @@ def create_link_dict():
 link_dict = create_link_dict()
 ul = codecs.open(u'unknown_links.txt', u'w', u'utf-8')
 ov = codecs.open(u'ошибка выравнивания.txt', u'w', u'utf-8')
+cp = codecs.open(u'проблемы в шаблоне.txt', u'w', u'utf-8')
+cp_arr = []
 bs = codecs.open(u'bad_sentence.txt', u'w', u'utf-8')
 tc = codecs.open(u'corpus-shablon.txt', u'r', u'utf-8')
-tc = codecs.open(u'corpus-d_2304.txt', u'r', u'utf-8')
-ud = codecs.open(u'ud.txt', u'w', u'utf-8')
+tc = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus-d_2304.txt', u'r', u'utf-8')
+ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_1209.txt', u'w', u'utf-8')
 written_links = []
 ud.write(u'sent	sid	wid	token	lemma	gram	head	link\r\n')
 previous_sent = Sent()
 previous_sent.index = -1
 for line in tc:
-    # print line, line[0], u'this is line', line[0], line[1]
-    if line[0] == u's':
-        # print line, u'first_line'
-        first = True
-        continue
     line = line.rstrip()
-    line_content = line.split(u'	')
+    if u'>' in line or u'<' in line or line == u'' or line[0] == u's':
+        first = True
+        # print line, u'the beginning'
+        continue
+    line_content = line.split(u'\t')
+    # print line, u'begins with', line_content[0]
+    # print u'the second item', line_content[1], previous_sent.index
     if line_content[1] != previous_sent.index:
+        # print u'that is the first', line_content[3]
         first = True
     if first:
         if previous_sent.index != -1 and not ovm and not bad_sentence:
@@ -541,8 +552,8 @@ for line in tc:
                 # previous_sent.print_sa_tree()
                 # previous_sent.print_et_tree()
                 previous_sent.create_ud_tree()
-                print
-                previous_sent.print_ud_tree()
+                # print
+                # previous_sent.print_ud_tree()
                 for child in sorted(previous_sent.words):
                         word = previous_sent.words[child]
                         if word.ud_link == u'root':
@@ -554,18 +565,20 @@ for line in tc:
                         # print arr
                         towrite = u'	'.join(arr)
                         ud.write(towrite + u'\r\n')
-                print u'_________________________________________________'
+                # print u'_________________________________________________'
         ovm = False
         bad_sentence = False
         new_sent = Sent()
         new_sent.index = line_content[1]
+        previous_sent.index = new_sent.index
         new_sent.text = line_content[0]
         if line_content[2] != u'1':
             # это ломанное предложение
-            bs.write(new_sent.index + u'\t' + new_sent.text + u'\tfalse start' +  u'\r\n')
+            bs.write(new_sent.index + u'\t' + new_sent.text + u'\tfalse start' + u'\r\n')
+            # print u'the reason fo false start is that the fist line is', line
             bad_sentence = True
             previous_sent = new_sent
-            first = False
+        first = False
     if ovm or bad_sentence:
         continue
     new_word = Word(new_sent)
@@ -588,6 +601,7 @@ for line in tc:
     if new_word.token != new_word.et_token:
         ov.write(new_sent.index + u'\t' + new_sent.text + u'\r\n')
         ovm = True
+        # print u'токены не совпадают', new_word.token, new_word.et_token
         continue
     try:
         new_word.et_gramm = line_content[10]

@@ -6,86 +6,75 @@ dat	dobj	etap3	2-компл	iobj	-
 obj:acc	dobj	-	-	-	-
 obj:acc:coord	conj	-	-	-	-
 conj	cc	-	-	-	T
-=======
-sa_link	default_ud_link	where	what	then_ud_link	head_change
-root	root	-	-	-	-
+
+
 subj:nom	nsubj	-	-	-	-
-dat	dobj	etap3	2-компл	iobj	-
+subj:nom:coord	conj	-	-	-	-
+subj	dep	-	-	-	-
+subj:coord	conj	-	-	-	-
+subj:dat	dobj	-	-	-	-
+subj:gen	dobj	-	-	-	-
+subj:gen:coord	conj	-	-	-	-
+subj:inf	csubj	-	-	-	-
+subj:inf:coord	conj	-	-	-	-
+subj:num	nsubj	-	-	-	-
+subj:num:coord	conj	-	-	-	-
 obj:acc	dobj	-	-	-	-
 obj:acc:coord	conj	-	-	-	-
-conj	cc	-	-	-	T
-
-
-subj:nom	nsubj	-	-	-	-
-subj:nom:coord conj	-	-	-	-
-subj dep - - - -
-subj:coord conj	-	-	-	-
-subj:dat dobj - - - -
-subj:gen dobj - - - -
-subj:gen:coord conj	-	-	-	-
-subj:inf csubj - - - -
-subj:inf:coord conj	-	-	-	-
-subj:num nsubj - - - -
-subj:num:coord conj	-	-	-	-
-obj:acc	dobj	-	-	-	-
-obj:acc:coord conj	-	-	-	-
-obj:gen dobj - - - -
-obj:gen:coord conj	-	-	-	-
-obj:nom dobj - - - -
-obj:num dobj - - - -
-obj:num:coord conj	-	-	-	-
-obj:part
+obj:gen	dobj	-	-	-	-
+obj:gen:coord	conj	-	-	-	-
+obj:nom	dobj	-	-	-	-
+obj:num	dobj	-	-	-	-
+obj:num:coord	conj	-	-	-	-
 dat	dobj	etap3	2-компл	iobj	-
-ins cop etap3 присвяз dobj -
-krat cop - - - -
-gen nmod - - - -
-prepnp case - - - -
-adj amod - - - -
-ptp acl - - - -
-adv advmod etap3 обст cop -
-prep advmod:emph etap3 обст|атриб|огранич mwe
-part cc - - - -
+ins	cop	etap3	присвяз	dobj	-
+krat	cop	-	-	-	-
+gen	nmod	-	-	-	-
+prepnp	case	-	-	-	-
+adj	amod	-	-	-	-
+ptp	acl	-	-	-	-
+adv	advmod	etap3	обст	cop	-
+prep	advmod:emph	etap3	обст|атриб|огранич	mwe
+part	cc	-	-	-	-
 conj	cc	-	-	-	T
-coord conj	-	-	-	-
-digit nummod - - - -
-inf:coord conj	-	-	-	-
-by aux - - - -
-li discourse - - - -
-pt neg etap3 огранич discourse -
+coord	conj	-	-	-	-
+digit	nummod	-	-	-	-
+inf:coord	conj	-	-	-	-
+by	aux	-	-	-	-
+li	discourse	-	-	-	-
+pt	neg	etap3	огранич	discourse	-
 
-coord conj	-	-	-	-
-hyph mwe - - - -
+coord	conj	-	-	-	-
+hyph	mwe	-	-	-	-
 
-quoml punct - - - -
-quomr punct - - - -
-amod det - 
-mod:inf acl - - - -
-mod:inf:coord conj	-	-	-	-
-adj:coord conj	-	-	-	-
-analyt aux - - - -
-analyt:coord conj	-	-	-	-
-dee advcl - - - -
+quoml	punct	-	-	-	-
+quomr	punct	-	-	-	-
+amod	det	-	
+mod:inf	acl	-	-	-	-
+mod:inf:coord	conj	-	-	-	-
+adj:coord	conj	-	-	-	-
+analyt	aux	-	-	-	-
+analyt:coord	conj	-	-	-	-
+dee	advcl	-	-	-	-
 
-imper:coord conj	-	-	-	-
-impers:inf advcl - - - -
-impers:inf:coord conj	-	-	-	-
-fin auxpass:reflex etap3 пасс-анал aux -|T
-fin:coord conj	-	-	-	-
-pred:cop root - - - -
-Pred:Cop:coord conj	-	-	-	-
-root root - - - -
-root:coord conj	-	-	-	-
+imper:coord	conj	-	-	-	-
+impers:inf	advcl	-	-	-	-
+impers:inf:coord	conj	-	-	-	-
+fin	auxpass:reflex	etap3	пасс-анал	aux	-|T
+fin:coord	conj	-	-	-	-
+pred:cop	root	-	-	-	-
+Pred:Cop:coord	conj	-	-	-	-
+root	root	-	-	-	-
+root:coord	conj	-	-	-	-
 
-+card ??сложнее двух строчек
--??obj:inf xcomp|ccomp - - - -??глаголы чтоли перечислять?
-+inf ??больше двух условий
--sent?? больше двух условий
-+np?? проблема в выделении имен собственных
-+appo ?? больше двух условий
-+misc?? сложнее двух условий
 
-homo aux head_token быть conj -
-lexmod punct gramm pnt mwe -
-imper root - parataxis -
+homo	aux	head_token	быть	conj	-
+lexmod	punct	gramm	pnt	mwe	-
+imper	root	-	parataxis	-
 
+np	-	soft	-	-	-
+card	-	soft	-	-	-
+inf	-	soft	-	-	-
+appo	-	soft	-	-	-
+misc	-	soft	-	-	-
 >>>>>>> origin/master
