@@ -33,7 +33,7 @@ gen	nmod	-	-	-	-
 prepnp	case	-	-	-	-
 adj	amod	-	-	-	-
 ptp	acl	-	-	-	-
-adv	advmod	etap3	обст	cop	-
+adv	cop	etap3	обст	advmod	-
 prep	advmod:emph	etap3	обст|атриб|огранич	mwe
 part	cc	-	-	-	-
 conj	cc	-	-	-	T
@@ -42,7 +42,7 @@ digit	nummod	-	-	-	-
 inf:coord	conj	-	-	-	-
 by	aux	-	-	-	-
 li	discourse	-	-	-	-
-pt	neg	etap3	огранич	discourse	-
+pt	discourse	etap3	огранич	neg	-
 
 coord	conj	-	-	-	-
 hyph	mwe	-	-	-	-
@@ -68,7 +68,7 @@ root	root	-	-	-	-
 root:coord	conj	-	-	-	-
 
 
-homo	aux	head_token	быть	conj	-
+homo	conj	head_token	быть	aux	-
 lexmod	punct	gramm	pnt	mwe	-
 imper	root	-	parataxis	-
 
