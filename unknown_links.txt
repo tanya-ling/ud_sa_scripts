@@ -1,23 +1,23 @@
-unknown link obj:inf
-unknown link sent
-unknown link auxs
-unknown link obj:part
-unknown link auxd
-unknown link 
-unknown link sirc:inf
-unknown link sub:inf
-unknown link obj:inf:coord
-unknown link sirc:inf:coord
-unknown link sub:inf:coord
-unknown link conj:coord
-unknown link obj:prep
-unknown link subj:instr
-unknown link subj:instr:coord
-unknown link subj:acc
-unknown link cj
-unknown link obj:coord
-unknown link spec
-unknown link undef
-unknown link pred:coord
-unknown link obj
-unknown link subj:vrb
+unknown link 	30
+unknown link cj	323
+unknown link obj:inf	587
+unknown link obj:part	1
+unknown link sub:inf	62
+unknown link undef	2
+unknown link subj:instr:coord	1
+unknown link obj:prep	2
+unknown link spec	5
+unknown link sent	1761
+unknown link conj:coord	1
+unknown link subj:instr	4
+unknown link sirc:inf	59
+unknown link auxd	102
+unknown link auxs	346
+unknown link obj:coord	35
+unknown link subj:vrb	1
+unknown link obj	9
+unknown link sirc:inf:coord	3
+unknown link obj:inf:coord	37
+unknown link subj:acc	1
+unknown link sub:inf:coord	8
+unknown link pred:coord	1

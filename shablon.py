@@ -3,6 +3,7 @@
 
 import codecs
 from copy import copy
+import random
 
 
 class Word():
@@ -395,9 +396,9 @@ class Word():
             else:
                 self.ud_link = u'appos'
         if self.sa_link == u'misc':
-            if self.ud_pos == u'pnt':
+            if self.ud_pos == u'PUNCT':
                 self.ud_link = u'punct'
-            if self.sa_lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
+            elif self.sa_lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'name'
             else:
                 self.ud_link = u'dep'
@@ -440,8 +441,9 @@ class Sent():
                 child.ud_convert_shablon(link_dict[child.sa_link])
             else:
                 if child.sa_link not in written_links:
-                    ul.write(u'unknown link ' + child.sa_link + u'\r\n')
-                    written_links.append(child.sa_link)
+                    written_links[child.sa_link] = 1
+                else:
+                    written_links[child.sa_link] += 1
                 # print u'unknown link ', child.sa_link
                 child.ud_head = child.sa_head
                 child.ud_link = u'dep'
@@ -520,6 +522,21 @@ def create_link_dict():
     return link_dict
 
 
+def write_ul():
+    for link in written_links:
+        ul.write(u'unknown link ' + link + u'\t' + str(written_links[link]) + u'\r\n')
+
+
+def get_random(gsc, total):
+    if gsc >= 200:
+        return False, gsc, total
+    a = random.randint(0, total - gsc)
+    if a <= 200:
+        gsc += 1
+        return True, gsc, total
+    return False, gsc, total
+
+
 link_dict = create_link_dict()
 ul = codecs.open(u'unknown_links.txt', u'w', u'utf-8')
 ov = codecs.open(u'ошибка выравнивания.txt', u'w', u'utf-8')
@@ -528,11 +545,15 @@ cp_arr = []
 bs = codecs.open(u'bad_sentence.txt', u'w', u'utf-8')
 tc = codecs.open(u'corpus-shablon.txt', u'r', u'utf-8')
 tc = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus-d_2304.txt', u'r', u'utf-8')
-ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_1209.txt', u'w', u'utf-8')
-written_links = []
+ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_1409.txt', u'w', u'utf-8')
+gs = codecs.open(u'C:\\Tanya\\universal_dependencies\\gold_standard.txt', u'w', u'utf-8')
+written_links = {}
 ud.write(u'sent	sid	wid	token	lemma	gram	head	link\r\n')
+gs.write(u'sent	sid	wid	token	lemma	gram	head	link\r\n')
 previous_sent = Sent()
 previous_sent.index = -1
+gsc = 0
+total = 15443
 for line in tc:
     line = line.rstrip()
     if u'>' in line or u'<' in line or line == u'' or line[0] == u's':
@@ -547,6 +568,7 @@ for line in tc:
         first = True
     if first:
         if previous_sent.index != -1 and not ovm and not bad_sentence:
+            total -= 1
             created = previous_sent.create_structure()
             if created:
                 # previous_sent.print_sa_tree()
@@ -554,6 +576,7 @@ for line in tc:
                 previous_sent.create_ud_tree()
                 # print
                 # previous_sent.print_ud_tree()
+                iftake, gsc, total = get_random(gsc, total)
                 for child in sorted(previous_sent.words):
                         word = previous_sent.words[child]
                         if word.ud_link == u'root':
@@ -565,6 +588,8 @@ for line in tc:
                         # print arr
                         towrite = u'	'.join(arr)
                         ud.write(towrite + u'\r\n')
+                        if iftake:
+                            gs.write(towrite + u'\r\n')
                 # print u'_________________________________________________'
         ovm = False
         bad_sentence = False
@@ -621,4 +646,7 @@ for line in tc:
     #     new_sent.root = new_word
     previous_sent = new_sent
     first = False
+
+write_ul()
+print u'gs len: ', gsc
 
