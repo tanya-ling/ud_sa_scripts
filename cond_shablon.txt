@@ -80,4 +80,5 @@ card	-	soft	-	-	-
 inf	-	soft	-	-	-
 appo	-	soft	-	-	-
 misc	-	soft	-	-	-
+sent	-	soft	-	-	-
 >>>>>>> origin/master
