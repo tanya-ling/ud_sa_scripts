@@ -402,6 +402,14 @@ class Word():
                 self.ud_link = u'name'
             else:
                 self.ud_link = u'dep'
+        if self.sa_link == u'conj':
+            if self.sa_lemma == u'и' or self.sa_lemma == u'да' or self.sa_lemma == u'или' or self.sa_lemma == u'либо' \
+                    or self.sa_lemma == u'тоже' or self.sa_lemma == u'также' or self.sa_lemma == u'притом' or self.sa_lemma == u'причём' \
+                    or self.sa_lemma == u'а' or self.sa_lemma == u'но' or self.sa_lemma == u'зато' or self.sa_lemma == u'однако' or self.sa_lemma == u'же':
+                self.ud_link = u'cc'
+            else:
+                self.ud_link = u'advcl'
+        
         
 
 class Sent():
