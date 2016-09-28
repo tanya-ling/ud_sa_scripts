@@ -26,17 +26,19 @@ obj:gen:coord	conj	-	-	-	-
 obj:nom	dobj	-	-	-	-
 obj:num	dobj	-	-	-	-
 obj:num:coord	conj	-	-	-	-
+obj:inf:coord conj	-	-	-	-
+obj:coord conj	-	-	-	-
 dat	dobj	etap3	2-компл	iobj	-
 ins	cop	etap3	присвяз	dobj	-
 krat	cop	-	-	-	-
 gen	nmod	-	-	-	-
-prepnp	case	-	-	-	-
+
 adj	amod	-	-	-	-
 ptp	acl	-	-	-	-
 adv	cop	etap3	обст	advmod	-
 prep	advmod:emph	etap3	обст|атриб|огранич	mwe
 part	cc	-	-	-	-
-conj	cc	-	-	-	T
+prepnp	iobj	etap3	присвяз|1-компл|обст|2-компл	case	-
 coord	conj	-	-	-	-
 digit	nummod	-	-	-	-
 inf:coord	conj	-	-	-	-
@@ -72,6 +74,7 @@ homo	conj	head_token	быть	aux	-
 lexmod	punct	gramm	pnt	mwe	-
 imper	root	-	parataxis	-
 
+conj	-	soft	-	-	T
 np	-	soft	-	-	-
 card	-	soft	-	-	-
 inf	-	soft	-	-	-
