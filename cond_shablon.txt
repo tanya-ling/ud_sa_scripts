@@ -26,8 +26,8 @@ obj:gen:coord	conj	-	-	-	-
 obj:nom	dobj	-	-	-	-
 obj:num	dobj	-	-	-	-
 obj:num:coord	conj	-	-	-	-
-obj:inf:coord conj	-	-	-	-
-obj:coord conj	-	-	-	-
+obj:inf:coord conj  - - - -
+obj:coord conj  - - - -
 dat	dobj	etap3	2-компл	iobj	-
 ins	cop	etap3	присвяз	dobj	-
 krat	cop	-	-	-	-
@@ -68,7 +68,7 @@ pred:cop	root	-	-	-	-
 Pred:Cop:coord	conj	-	-	-	-
 root	root	-	-	-	-
 root:coord	conj	-	-	-	-
-
+cj  cc  - - - -
 
 homo	conj	head_token	быть	aux	-
 lexmod	punct	gramm	pnt	mwe	-
