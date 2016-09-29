@@ -553,7 +553,7 @@ cp_arr = []
 bs = codecs.open(u'bad_sentence.txt', u'w', u'utf-8')
 tc = codecs.open(u'corpus-shablon.txt', u'r', u'utf-8')
 tc = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus-d_2304.txt', u'r', u'utf-8')
-ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_1409.txt', u'w', u'utf-8')
+ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_2909.txt', u'w', u'utf-8')
 gs = codecs.open(u'C:\\Tanya\\universal_dependencies\\gold_standard.txt', u'w', u'utf-8')
 written_links = {}
 ud.write(u'sent	sid	wid	token	lemma	gram	head	link\r\n')

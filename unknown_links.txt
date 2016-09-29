@@ -7,7 +7,6 @@ unknown link undef	2
 unknown link subj:instr:coord	1
 unknown link obj:prep	2
 unknown link spec	5
-unknown link sent	1761
 unknown link conj:coord	1
 unknown link subj:instr	4
 unknown link sirc:inf	59
