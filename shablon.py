@@ -408,7 +408,7 @@ class Word():
                     or self.sa_lemma == u'а' or self.sa_lemma == u'но' or self.sa_lemma == u'зато' or self.sa_lemma == u'однако' or self.sa_lemma == u'же':
                 self.ud_link = u'cc'
             else:
-                self.ud_link = u'advcl'
+                self.ud_link = u'advmod'
         
         
 
