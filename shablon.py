@@ -306,6 +306,8 @@ class Word():
                 self.ud_link = info[0]
 
     def ud_convert_shablon(self, info):
+        # if self.sa_lemma in pr_det:
+        #     self.pron_det()
         if info[1] == u'-':
             self.ud_link = info[0]
             # print u'simple translation', self.sa_link, u'to', self.ud_link
@@ -373,6 +375,8 @@ class Word():
                     or self.sa_lemma == u'тоже' or self.sa_lemma == u'также' or self.sa_lemma == u'притом' or self.sa_lemma == u'причём' \
                     or self.sa_lemma == u'а' or self.sa_lemma == u'но' or self.sa_lemma == u'зато' or self.sa_lemma == u'однако' or self.sa_lemma == u'же':
                 self.ud_link = u'cc'
+            elif self.sa_lemma in sub_conj:
+                self.ud_link = 'mark'
             else:
                 self.ud_link = u'advmod'
 
@@ -421,6 +425,10 @@ class Word():
             uas = 1
             las = 1
         return uas, las
+
+    def pron_det(self):
+        self.ud_head = self.sa_head
+        self.ud_link = 'det'
 
 
 class Sent():
@@ -568,19 +576,20 @@ def fc_to_memory():
         gs_size += 1
     return gs_size, fc_d
 
-
-
-link_dict = create_link_dict()
+sc = codecs.open(u'subconj.txt', u'r', u'utf-8')
+sub_conj = sc.read().split(', ')
+pr = codecs.open(u'pronouns_det.txt', u'r', u'utf-8')
+pr_det = pr.read().split(' ')
 ul = codecs.open(u'unknown_links.txt', u'w', u'utf-8')
 ov = codecs.open(u'ошибка выравнивания.txt', u'w', u'utf-8')
 cp = codecs.open(u'проблемы в шаблоне.txt', u'w', u'utf-8')
-cp_arr = []
 bs = codecs.open(u'bad_sentence.txt', u'w', u'utf-8')
-# tc = codecs.open(u'corpus-shablon.txt', u'r', u'utf-8')
 tc = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus-d_2304.txt', u'r', u'utf-8')
 ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_2612.txt', u'w', u'utf-8')
 gs = codecs.open(u'C:\\Tanya\\universal_dependencies\\gold_standard.txt', u'w', u'utf-8')
 
+link_dict = create_link_dict()
+cp_arr = []
 gs_size, fc_d = fc_to_memory()
 las_num = 0
 uas_num = 0
