@@ -44,10 +44,8 @@ inf:coord	conj	-	-	-	-
 by	aux	-	-	-	-
 li	discourse	-	-	-	-
 pt	discourse	etap3	огранич	neg	-
-
 coord	conj	-	-	-	-
 hyph	mwe	-	-	-	-
-
 quoml	punct	-	-	-	-
 quomr	punct	-	-	-	-
 amod	det	- - - -	
@@ -57,7 +55,6 @@ adj:coord	conj	-	-	-	-
 analyt	aux	-	-	-	-
 analyt:coord	conj	-	-	-	-
 dee	advcl	-	-	-	-
-
 imper:coord	conj	-	-	-	-
 impers:inf	advcl	-	-	-	-
 impers:inf:coord	conj	-	-	-	-
