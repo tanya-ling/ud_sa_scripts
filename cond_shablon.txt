@@ -36,7 +36,7 @@ ptp	acl	-	-	-	-
 adv	cop	etap3	обст	advmod	-
 prep mwe etap3 обст|атриб|огранич advmod:emph -
 part	cc	-	-	-	-
-prepnp	iobj	etap3	присвяз|1-компл|обст|2-компл	case	-|T
+prepnp	iobj	etap3	присвяз|1-компл|обст|2-компл	case	T
 coord	conj	-	-	-	-
 digit	nummod	-	-	-	-
 inf:coord	conj	-	-	-	-
