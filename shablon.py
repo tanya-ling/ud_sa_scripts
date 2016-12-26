@@ -325,7 +325,7 @@ class Word():
             elif info[1] == u'soft':
                 self.ud_convert()
             else:
-                print u'unexpected "where" in shablon, typo? ', info[1]
+                print u'unexpected "where" in shablon, typo? ', info[0], info[1]
         self.ud_head = self.sa_head
         try:
             if info[4] == u'T':
@@ -384,29 +384,44 @@ class Word():
         if self.sa_link == u'inf':
             if self.et_link == u'присвяз':
                 self.ud_link = u'cop'
-            if self.ud_pos == u'NOUN':
+            elif self.ud_pos == u'NOUN':
                 self.ud_link = u'acl'
-            for child in self.sa_children:
-				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
-				    subject_index = child.sa_index
-			for child in self.sa_head.children:
-				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
-					if subject_index == child.sa_index:
-						self.ud_link = 'xcomp'
-					else:
-						self.ud_link = 'ccomp'
+            else:
+                self.ud_link = self.comp()
         if self.sa_link == u'sent':
             if self.sa_head.ud_pos == 'CONJ':
-				self.ud_link = u'advmod'
-			for child in self.sa_children:
-				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
-					subject_index = child.sa_index
-			for child in self.sa_head.index:
-				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
-					if subject_index == child.sa_index:
-						self.ud_link = 'xcomp'
-        
-        
+                self.ud_link = u'advmod'
+            else:
+                self.ud_link = self.comp()
+
+    def comp(self):
+        verbs = u'хотеть любить мечтать ненавидеть нравиться желать соглашаться забыть забывать бояться предпочитать ' \
+                u'уставать лениться начать начинать заканчивать кончить'.split()
+        if self.sa_head.sa_lemma in verbs:
+            return 'xcomp'
+        return 'ccomp'
+
+    def metrics(self):
+        if self.ud_head == 'root':
+            a = 0
+        else:
+            a = self.ud_head.index
+        try:
+            if str(a) == str(fc_d[self.sent.index][str(self.index)][0]):
+                uas = 1
+            else:
+                uas = 0
+                # print 'metrics fail', self.ud_head.index, fc_d[self.sent.index][str(self.index)][0]
+            if uas == 1 and self.ud_link == fc_d[self.sent.index][str(self.index)][1]:
+                las = 1
+            else:
+                las = 0
+        except KeyError:
+            print 'keyerror in metrics', a, self.sent.index, self.index
+            uas = 1
+            las = 1
+        return uas, las
+
 
 class Sent():
     def __init__(self):
@@ -554,21 +569,6 @@ def fc_to_memory():
     return gs_size, fc_d
 
 
-def metrics(self):
-    if self.ud_head == 'root':
-        a = 0
-    else:
-        a = self.ud_head.index
-    if str(a) == str(fc_d[self.sent.index][str(self.index)][0]):
-        uas = 1
-    else:
-        uas = 0
-        # print 'metrics fail', self.ud_head.index, fc_d[self.sent.index][str(self.index)][0]
-    if uas == 1 and self.ud_link == fc_d[self.sent.index][str(self.index)][1]:
-        las = 1
-    else:
-        las = 0
-    return uas, las
 
 link_dict = create_link_dict()
 ul = codecs.open(u'unknown_links.txt', u'w', u'utf-8')

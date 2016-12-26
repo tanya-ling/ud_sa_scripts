@@ -1,3 +1,1 @@
-too short instruction: prep
-too short instruction: imper
 too short instruction: amod

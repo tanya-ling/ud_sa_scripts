@@ -17,6 +17,7 @@ unknown link subj:vrb	1
 unknown link obj	9
 unknown link sirc:inf:coord	3
 unknown link obj:inf:coord	37
+unknown link prep	968
 unknown link subj:acc	1
 unknown link sub:inf:coord	8
 unknown link pred:coord	1
