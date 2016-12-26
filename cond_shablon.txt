@@ -64,7 +64,7 @@ pred:cop	root	-	-	-	-
 Pred:Cop:coord	conj	-	-	-	-
 root	root	-	-	-	-
 root:coord	conj	-	-	-	-
-cj  cc  - - - -
+cj	cc	-	-	-	-
 homo	conj	head_token	быть	aux	-
 lexmod	punct	gramm	pnt	mwe	-
 
