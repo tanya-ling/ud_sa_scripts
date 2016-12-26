@@ -36,7 +36,7 @@ gen	nmod	-	-	-	-
 adj	amod	-	-	-	-
 ptp	acl	-	-	-	-
 adv	cop	etap3	обст	advmod	-
-prep	advmod:emph	etap3	обст|атриб|огранич	mwe
+prep mwe etap3 обст|атриб|огранич advmod:emph -
 part	cc	-	-	-	-
 prepnp	iobj	etap3	присвяз|1-компл|обст|2-компл	case	-
 coord	conj	-	-	-	-
@@ -51,7 +51,7 @@ hyph	mwe	-	-	-	-
 
 quoml	punct	-	-	-	-
 quomr	punct	-	-	-	-
-amod	det	-	
+amod	det	- - - -	
 mod:inf	acl	-	-	-	-
 mod:inf:coord	conj	-	-	-	-
 adj:coord	conj	-	-	-	-
@@ -69,11 +69,10 @@ Pred:Cop:coord	conj	-	-	-	-
 root	root	-	-	-	-
 root:coord	conj	-	-	-	-
 cj  cc  - - - -
-
 homo	conj	head_token	быть	aux	-
 lexmod	punct	gramm	pnt	mwe	-
-imper	root	-	parataxis	-
 
+imper - soft - - -
 conj	-	soft	-	-	T
 np	-	soft	-	-	-
 card	-	soft	-	-	-
