@@ -5,7 +5,6 @@ subj:nom	nsubj	-	-	-	-
 dat	dobj	etap3	2-компл	iobj	-
 obj:acc	dobj	-	-	-	-
 obj:acc:coord	conj	-	-	-	-
-conj	cc	-	-	-	T
 
 
 subj:nom	nsubj	-	-	-	-
