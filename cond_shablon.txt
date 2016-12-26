@@ -48,7 +48,7 @@ coord	conj	-	-	-	-
 hyph	mwe	-	-	-	-
 quoml	punct	-	-	-	-
 quomr	punct	-	-	-	-
-amod	det	- - - -	
+amod	det	-	-	-	-
 mod:inf	acl	-	-	-	-
 mod:inf:coord	conj	-	-	-	-
 adj:coord	conj	-	-	-	-
