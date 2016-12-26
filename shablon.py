@@ -146,6 +146,7 @@ class Word():
                     return u','.join([number, form, mood, tense])
                 else:
                     print u'was für ein', self.sa_gramm, self.token
+                    pass
             elif u'inf' in self.sa_gramm:
                 form = u'Inf'
                 return form
@@ -162,7 +163,7 @@ class Word():
             elif u'pdv' in self.sa_gramm:
                 return u'pdv'
             else:
-                print u'was für eine Form', self.sa_gramm, self.token
+                # print u'was für eine Form', self.sa_gramm, self.token
                 return u'dif'  # нужно разобраться
         else:
             return u''
@@ -233,7 +234,7 @@ class Word():
         elif u'NID' in self.et_gramm:
             return u''
         else:
-            print u'was für ein Kasus', self.sa_gramm, self.et_gramm, self.token
+            # print u'was für ein Kasus', self.sa_gramm, self.et_gramm, self.token
             return u''
         return case
 
@@ -253,7 +254,7 @@ class Word():
                 return u'Plur'
             elif u'NID' in self.et_gramm:
                 return u''
-            print u'was für ein number', self.et_gramm, self.sa_gramm, self.token
+            # print u'was für ein number', self.et_gramm, self.sa_gramm, self.token
             return u''
 
     def get_gender(self):
@@ -277,7 +278,7 @@ class Word():
             elif u'NID' in self.et_gramm:
                 return u''
             else:
-                print u'was für ein gender?', self.sa_gramm, self.et_gramm, self.token
+                # print u'was für ein gender?', self.sa_gramm, self.et_gramm, self.token
                 return u''
             return gender
 
@@ -338,36 +339,7 @@ class Word():
         # это, конечно, не надо всё в кучу в одном месте писать, но пока я оставила так
         self.ud_gramm = self.sa_gramm  # наверное в перспективе тут тоже будет что-то меняться? мы не говорили об этом
         self.ud_lemma = self.sa_lemma
-        # if self.sa_link == u'root':
-        #     self.ud_link = u'root'
-        #     self.ud_head = u'root'
-        # if self.sa_link == u'subj:nom':
-        #     self.ud_link = u'nsubj'
-        #     self.ud_head = self.sa_head
-        # if self.sa_link == u'dat':
-        #     if self.et_link == u'1-компл':
-        #         self.ud_link = u'dobj'
-        #     elif self.et_link == u'2-компл':
-        #         self.ud_link = u'iobj'
-        #     else:
-        #         pass
-        #         # на самом деле тут наверняка будут предложения с ошибками, а может и просто неучтенные случаи
-        #     self.ud_head = self.sa_head
-        # if self.sa_link == u'obj:acc':
-        #     self.ud_link = u'dobj'
-        #     self.ud_head = self.sa_head
-        # if self.sa_link == u'obj:acc:coord':
-        #     self.ud_link = u'conj'
-        #     self.ud_head = self.sa_head
-        # if self.sa_link == u'conj':
-        #     self.ud_link = u'cc'
-        #     self.head_change = True
-        #     self.ud_head = self.sa_head
-        #     # self.ud_head = self.sa_head.sa_head
-        #     # ОН сказала пока не делать правильной ud головы, а помечать места смены структуры
-        #     # (что и делает строка self.head_change = True)
-        #     # но я написала на всякий случай, что в итоге должно происходить - self.ud_head = self.sa_head.sa_head
-        #сложные правила Маша
+
         if self.sa_link == u'np':
             if self.sa_lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'name'
@@ -395,6 +367,7 @@ class Word():
                 self.ud_link = u'name'
             else:
                 self.ud_link = u'dep'
+
         if self.sa_link == u'conj':
             if self.sa_lemma == u'и' or self.sa_lemma == u'да' or self.sa_lemma == u'или' or self.sa_lemma == u'либо' \
                     or self.sa_lemma == u'тоже' or self.sa_lemma == u'также' or self.sa_lemma == u'притом' or self.sa_lemma == u'причём' \
@@ -402,27 +375,28 @@ class Word():
                 self.ud_link = u'cc'
             else:
                 self.ud_link = u'advmod'
+
         if self.sa_link == u'imper':
             if self.sa_head_index == 0:
                 self.ud_link = u'root'
             else:
                 self.ud_link = u'parataxis'
-		if self.sa_link == u'inf':
+        if self.sa_link == u'inf':
             if self.et_link == u'присвяз':
                 self.ud_link = u'cop'
             if self.ud_pos == u'NOUN':
                 self.ud_link = u'acl'
-			for child in self.sa_children:
+            for child in self.sa_children:
 				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
-					subject_index = child.sa_index
-			for child in self.sa_head.index:
+				    subject_index = child.sa_index
+			for child in self.sa_head.children:
 				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
 					if subject_index == child.sa_index:
 						self.ud_link = 'xcomp'
 					else:
 						self.ud_link = 'ccomp'
         if self.sa_link == u'sent':
-			if self.sa_head.ud_pos == 'CONJ'
+            if self.sa_head.ud_pos == 'CONJ':
 				self.ud_link = u'advmod'
 			for child in self.sa_children:
 				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
@@ -567,16 +541,51 @@ def get_random(gsc, total):
     return False, gsc, total
 
 
+def fc_to_memory():
+    fc = codecs.open(u'C:\\Tanya\\universal_dependencies\\gold_standard_full.csv', u'r', u'utf-8')
+    fc_d = {}
+    gs_size = 0
+    for line in fc:
+        ar = line.rstrip().split(';')
+        if ar[1] not in fc_d:
+            fc_d[ar[1]] = {}
+        fc_d[ar[1]][ar[2]] = [ar[7], ar[8]]
+        gs_size += 1
+    return gs_size, fc_d
+
+
+def metrics(self):
+    if self.ud_head == 'root':
+        a = 0
+    else:
+        a = self.ud_head.index
+    if str(a) == str(fc_d[self.sent.index][str(self.index)][0]):
+        uas = 1
+    else:
+        uas = 0
+        # print 'metrics fail', self.ud_head.index, fc_d[self.sent.index][str(self.index)][0]
+    if uas == 1 and self.ud_link == fc_d[self.sent.index][str(self.index)][1]:
+        las = 1
+    else:
+        las = 0
+    return uas, las
+
 link_dict = create_link_dict()
 ul = codecs.open(u'unknown_links.txt', u'w', u'utf-8')
 ov = codecs.open(u'ошибка выравнивания.txt', u'w', u'utf-8')
 cp = codecs.open(u'проблемы в шаблоне.txt', u'w', u'utf-8')
 cp_arr = []
 bs = codecs.open(u'bad_sentence.txt', u'w', u'utf-8')
-tc = codecs.open(u'corpus-shablon.txt', u'r', u'utf-8')
+# tc = codecs.open(u'corpus-shablon.txt', u'r', u'utf-8')
 tc = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus-d_2304.txt', u'r', u'utf-8')
-ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_2909.txt', u'w', u'utf-8')
+ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_2612.txt', u'w', u'utf-8')
 gs = codecs.open(u'C:\\Tanya\\universal_dependencies\\gold_standard.txt', u'w', u'utf-8')
+
+gs_size, fc_d = fc_to_memory()
+las_num = 0
+uas_num = 0
+
+
 written_links = {}
 ud.write(u'sent	sid	wid	token	lemma	gram	head	link\r\n')
 gs.write(u'sent	sid	wid	token	lemma	gram	head	link\r\n')
@@ -617,6 +626,10 @@ for line in tc:
                                    word.ud_pos, word.ud_gramm, str(word.ud_head.index), word.ud_link]
                         # print arr
                         towrite = u'	'.join(arr)
+                        if previous_sent.index in fc_d:
+                            uas_n, las_n = word.metrics()
+                            uas_num += uas_n
+                            las_num += las_n
                         ud.write(towrite + u'\r\n')
                         if iftake:
                             gs.write(towrite + u'\r\n')
@@ -679,4 +692,6 @@ for line in tc:
 
 write_ul()
 print u'gs len: ', gsc
+
+print las_num, uas_num, gs_size
 
