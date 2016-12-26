@@ -372,21 +372,14 @@ class Word():
             if self.sa_lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'name'
             else:
-                self.ud_link = u'vocative'
+                self.ud_link = u'vocative?'
         if self.sa_link == u'card':
             if self.et_link == u'колич':
                 self.ud_link = u'nummod:gov'
             if self.et_link == u'опред':
-                self.ud_link = u'det:nummod'
+                self.ud_link = u'nummod'
             if self.et_link == u'1-компл':
-                self.ud_link = u'det:numgov'
-        if self.sa_link == u'inf':
-            if self.et_link == u'присвяз':
-                self.ud_link = u'cop'
-            if self.ud_pos == u'NOUN':
-                self.ud_link = u'acl'
-            else:
-                self.ud_link = u'ccomp'
+                self.ud_link = u'nummod:gov'
         if self.sa_link == u'appo':
             if self.sa_head.lemma.startswith(u'QWERTYUIOPASDFGHJKLZXCVBNMЙЦУКЕНГШЩЗХЪЭДЛОРПАВЫФЯЧСМИТЬБЮ'):
                 self.ud_link = u'nmod'
@@ -409,6 +402,35 @@ class Word():
                 self.ud_link = u'cc'
             else:
                 self.ud_link = u'advmod'
+        if self.sa_link == u'imper':
+            if self.sa_head_index == 0:
+                self.ud_link = u'root'
+            else:
+                self.ud_link = u'parataxis'
+		if self.sa_link == u'inf':
+            if self.et_link == u'присвяз':
+                self.ud_link = u'cop'
+            if self.ud_pos == u'NOUN':
+                self.ud_link = u'acl'
+			for child in self.sa_children:
+				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
+					subject_index = child.sa_index
+			for child in self.sa_head.index:
+				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
+					if subject_index == child.sa_index:
+						self.ud_link = 'xcomp'
+					else:
+						self.ud_link = 'ccomp'
+        if self.sa_link == u'sent':
+			if self.sa_head.ud_pos == 'CONJ'
+				self.ud_link = u'advmod'
+			for child in self.sa_children:
+				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
+					subject_index = child.sa_index
+			for child in self.sa_head.index:
+				if child.sa_link == 'subj' or child.sa_link == 'subj:nom' or child.sa_link == 'subj:num':
+					if subject_index == child.sa_index:
+						self.ud_link = 'xcomp'
         
         
 
