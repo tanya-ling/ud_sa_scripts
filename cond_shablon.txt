@@ -25,13 +25,12 @@ obj:gen:coord	conj	-	-	-	-
 obj:nom	dobj	-	-	-	-
 obj:num	dobj	-	-	-	-
 obj:num:coord	conj	-	-	-	-
-obj:inf:coord conj  - - - -
-obj:coord conj  - - - -
+obj:inf:coord	conj	-	-	-	-
+obj:coord	conj	-	-	-	-
 dat	dobj	etap3	2-компл	iobj	-
 ins	cop	etap3	присвяз	dobj	-
 krat	cop	-	-	-	-
 gen	nmod	-	-	-	-
-
 adj	amod	-	-	-	-
 ptp	acl	-	-	-	-
 adv	cop	etap3	обст	advmod	-
