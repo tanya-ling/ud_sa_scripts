@@ -72,7 +72,7 @@ cj  cc  - - - -
 homo	conj	head_token	быть	aux	-
 lexmod	punct	gramm	pnt	mwe	-
 
-imper - soft - - -
+imper	-	soft	-	-	-
 conj	-	soft	-	-	T
 np	-	soft	-	-	-
 card	-	soft	-	-	-
