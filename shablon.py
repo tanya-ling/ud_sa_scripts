@@ -4,6 +4,7 @@
 import codecs
 from copy import copy
 import random
+import re
 
 
 class Word():
@@ -294,7 +295,8 @@ class Word():
             self.ud_pos = u'NOUN'
 
     def hard(self, info, where):  # это просто про совпадение
-            if info[2] == where:
+            if re.search(where, info[2]):
+            # if info[2] == where:
                 self.ud_link = info[3]
             else:
                 self.ud_link = info[0]
@@ -306,9 +308,9 @@ class Word():
                 self.ud_link = info[0]
 
     def ud_convert_shablon(self, info):
-        # if self.sa_lemma in pr_det:
-        #     self.pron_det()
-        if info[1] == u'-':
+        if self.sa_lemma in pr_det:
+            self.pron_det()
+        elif info[1] == u'-':
             self.ud_link = info[0]
             # print u'simple translation', self.sa_link, u'to', self.ud_link
         else:
@@ -371,14 +373,7 @@ class Word():
                 self.ud_link = u'dep'
 
         if self.sa_link == u'conj':
-            if self.sa_lemma == u'и' or self.sa_lemma == u'да' or self.sa_lemma == u'или' or self.sa_lemma == u'либо' \
-                    or self.sa_lemma == u'тоже' or self.sa_lemma == u'также' or self.sa_lemma == u'притом' or self.sa_lemma == u'причём' \
-                    or self.sa_lemma == u'а' or self.sa_lemma == u'но' or self.sa_lemma == u'зато' or self.sa_lemma == u'однако' or self.sa_lemma == u'же':
-                self.ud_link = u'cc'
-            elif self.sa_lemma in sub_conj:
-                self.ud_link = 'mark'
-            else:
-                self.ud_link = u'advmod'
+            self.conj_rules()
 
         if self.sa_link == u'imper':
             if self.sa_head_index == 0:
@@ -392,15 +387,32 @@ class Word():
                 self.ud_link = u'acl'
             else:
                 self.ud_link = self.comp()
-        if self.sa_link == u'sent':
+        if self.sa_link == u'sent' or self.sa_link == 'obj:inf':
             if self.sa_head.ud_pos == 'CONJ':
                 self.ud_link = u'advmod'
             else:
                 self.ud_link = self.comp()
+        if self.sa_link == u'pt':
+            if self.sa_lemma in neg:
+                self.ud_link = 'neg'
+            elif self.sa_lemma in disc:
+                self.ud_link = 'discourse'
+            else:
+                self.ud_link = 'advmod'
+
+    def conj_rules(self):
+        if self.sa_lemma == u'и' or self.sa_lemma == u'да' or self.sa_lemma == u'или' or self.sa_lemma == u'либо' \
+                or self.sa_lemma == u'тоже' or self.sa_lemma == u'также' or self.sa_lemma == u'притом' or self.sa_lemma == u'причём' \
+                or self.sa_lemma == u'а' or self.sa_lemma == u'но' or self.sa_lemma == u'зато' or self.sa_lemma == u'однако' or self.sa_lemma == u'же':
+            self.ud_link = u'cc'
+        elif self.sa_lemma in sub_conj:
+            self.ud_link = 'mark'
+        elif self.sa_gramm == 'pnt':
+            self.ud_link = 'punct'
+        else:
+            self.ud_link = u'advmod'
 
     def comp(self):
-        verbs = u'хотеть любить мечтать ненавидеть нравиться желать соглашаться забыть забывать бояться предпочитать ' \
-                u'уставать лениться начать начинать заканчивать кончить'.split()
         if self.sa_head.sa_lemma in verbs:
             return 'xcomp'
         return 'ccomp'
@@ -419,6 +431,9 @@ class Word():
             if uas == 1 and self.ud_link == fc_d[self.sent.index][str(self.index)][1]:
                 las = 1
             else:
+                if uas == 1:
+                    tlm.write(fc_d[self.sent.index][str(self.index)][1] + ';' + self.ud_link + ';' + self.sa_link + ';'
+                          + self.token + ';' + self.sent.text + '\r\n')
                 las = 0
         except KeyError:
             print 'keyerror in metrics', a, self.sent.index, self.index
@@ -580,6 +595,12 @@ sc = codecs.open(u'subconj.txt', u'r', u'utf-8')
 sub_conj = sc.read().split(', ')
 pr = codecs.open(u'pronouns_det.txt', u'r', u'utf-8')
 pr_det = pr.read().split(' ')
+vb = codecs.open(u'verbs.txt', u'r', u'utf-8')
+verbs = vb.read().rstrip().split(' ')
+ds = codecs.open(u'discourse.txt', u'r', u'utf-8')
+disc = ds.read().rstrip().split(', ')
+ng = codecs.open(u'neg.txt', u'r', u'utf-8')
+neg = ng.read().rstrip().split(', ')
 ul = codecs.open(u'unknown_links.txt', u'w', u'utf-8')
 ov = codecs.open(u'ошибка выравнивания.txt', u'w', u'utf-8')
 cp = codecs.open(u'проблемы в шаблоне.txt', u'w', u'utf-8')
@@ -587,6 +608,8 @@ bs = codecs.open(u'bad_sentence.txt', u'w', u'utf-8')
 tc = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus-d_2304.txt', u'r', u'utf-8')
 ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_2612.txt', u'w', u'utf-8')
 gs = codecs.open(u'C:\\Tanya\\universal_dependencies\\gold_standard.txt', u'w', u'utf-8')
+tlm = codecs.open(u'C:\\Tanya\\universal_dependencies\\to_look_manually.csv', u'w', u'cp1251')
+tlm.write('gold link;ud link;sa link;word;sentence\r\n')
 
 link_dict = create_link_dict()
 cp_arr = []

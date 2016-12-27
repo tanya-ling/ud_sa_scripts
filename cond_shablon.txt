@@ -33,16 +33,16 @@ krat	cop	-	-	-	-
 gen	nmod	-	-	-	-
 adj	amod	-	-	-	-
 ptp	acl	-	-	-	-
-adv	cop	etap3	обст	advmod	-
-prep mwe etap3 обст|атриб|огранич advmod:emph -
+adv	cop	etap3	(обст)|(огранич)	advmod	-
+prep	mwe	etap3	(обст)|(атриб)|(огранич)	advmod:emph	-
 part	cc	-	-	-	-
-prepnp	iobj	etap3	присвяз|1-компл|обст|2-компл	case	T
+prepnp	iobj	etap3	(присвяз)|(1-компл)|(обст)|(2-компл)	case	T
 coord	conj	-	-	-	-
 digit	nummod	-	-	-	-
 inf:coord	conj	-	-	-	-
 by	aux	-	-	-	-
 li	discourse	-	-	-	-
-pt	discourse	etap3	огранич	neg	-
+pt	-	soft	-	-	-
 coord	conj	-	-	-	-
 hyph	mwe	-	-	-	-
 quoml	punct	-	-	-	-
@@ -65,9 +65,9 @@ root	root	-	-	-	-
 root:coord	conj	-	-	-	-
 cj	cc	-	-	-	-
 homo	conj	head_token	быть	aux	-
-lexmod	punct	gramm	pnt	mwe	-
+lexmod	mwe	gramm	pnt	punct	-
 
-
+obj:inf	-	soft	-	-	-
 imper	-	soft	-	-	-
 conj	-	soft	-	-	T
 np	-	soft	-	-	-
