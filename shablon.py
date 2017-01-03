@@ -339,6 +339,20 @@ class Word():
                 cp.write(u'too short instruction: ' + self.sa_link + u'\r\n')
                 cp_arr.append(info[0])
 
+    def head_change_func(self):
+        if self.ud_link == 'case':
+            try:
+                self.ud_head = self.sa_children[0].ud_head
+                for ch in self.sa_children:
+                    ch.ud_head = ch.ud_head.sa_head
+                    if ch.ud_link == 'iobj':  # это тупо, должно решаться раньше и иначе
+                        ch.ud_link = 'nmod'
+                self.sa_children = []
+            except IndexError:
+                print 'case seems to have no children:', self.token, self.ud_head.token, self.sent.index
+
+
+
     def ud_convert(self):
         # это, конечно, не надо всё в кучу в одном месте писать, но пока я оставила так
         self.ud_gramm = self.sa_gramm  # наверное в перспективе тут тоже будет что-то меняться? мы не говорили об этом
@@ -500,8 +514,6 @@ class Sent():
                 print self.words[child].token, u' : root'
 
     def create_structure(self):
-        # words_arr = {}
-        # print self.words
         foundroot = False
         for index in self.words:
             if self.words[index].sa_link == u'root':
@@ -606,7 +618,7 @@ ov = codecs.open(u'ошибка выравнивания.txt', u'w', u'utf-8')
 cp = codecs.open(u'проблемы в шаблоне.txt', u'w', u'utf-8')
 bs = codecs.open(u'bad_sentence.txt', u'w', u'utf-8')
 tc = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus-d_2304.txt', u'r', u'utf-8')
-ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_2612.txt', u'w', u'utf-8')
+ud = codecs.open(u'C:\\Tanya\\universal_dependencies\\corpus_ud_0301.txt', u'w', u'utf-8')
 gs = codecs.open(u'C:\\Tanya\\universal_dependencies\\gold_standard.txt', u'w', u'utf-8')
 tlm = codecs.open(u'C:\\Tanya\\universal_dependencies\\to_look_manually.csv', u'w', u'cp1251')
 tlm.write('gold link;ud link;sa link;word;sentence\r\n')
@@ -650,6 +662,8 @@ for line in tc:
                 iftake, gsc, total = get_random(gsc, total)
                 for child in sorted(previous_sent.words):
                         word = previous_sent.words[child]
+                        if word.head_change:
+                            word.head_change_func()
                         if word.ud_link == u'root':
                             arr = [previous_sent.text, previous_sent.index, str(word.index), word.token, word.sa_lemma,
                                    word.ud_pos, word.ud_gramm, u'0',u'root']
